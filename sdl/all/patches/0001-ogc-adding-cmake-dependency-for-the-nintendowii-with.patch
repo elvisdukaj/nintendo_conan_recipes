@@ -1,0 +1,98 @@
+From 227a25d1480886c777599b79c0f55324efb233fb Mon Sep 17 00:00:00 2001
+From: Elvis Dukaj <elvis.dukaj@gmail.com>
+Date: Thu, 23 Jan 2025 08:58:49 +0100
+Subject: [PATCH 1/2] ogc: adding cmake dependency for the nintendowii with
+ devkitpro
+
+---
+ CMakeLists.txt | 31 +++++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9129cea2a..b8bb4fd68 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2886,6 +2886,8 @@ elseif(N3DS)
+   endforeach()
+ 
+ elseif(OGC)
++  find_package(libogc CONFIG REQUIRED COMPONENTS ogc sound wiikeyboard)
++  find_package(libdvm CONFIG REQUIRED)
+   if(CMAKE_SYSTEM_NAME MATCHES "NintendoWii")
+     file(GLOB OGC_MAIN_SOURCES ${SDL2_SOURCE_DIR}/src/main/wii/*.c)
+   else()
+@@ -2898,7 +2900,6 @@ elseif(OGC)
+     file(GLOB OGC_AUDIO_SOURCES ${SDL2_SOURCE_DIR}/src/audio/ogc/*.c)
+     list(APPEND SOURCE_FILES ${OGC_AUDIO_SOURCES})
+     set(HAVE_SDL_AUDIO TRUE)
+-    list(APPEND EXTRA_LIBS "aesnd")
+   endif()
+ 
+   if(SDL_FILESYSTEM)
+@@ -2937,23 +2938,15 @@ elseif(OGC)
+     set(SDL_VIDEO_OPENGL 0)
+     set(HAVE_SDL_VIDEO TRUE)
+     if(SDL_OPENGL)
+-      pkg_search_module(OPENGX opengl REQUIRED IMPORTED_TARGET)
++      find_package(OpenGL CONFIG REQUIRED)
+       set(SDL_VIDEO_OPENGL 1)
+       set(HAVE_OPENGL TRUE)
+-      list(APPEND EXTRA_LIBS "opengx")
+-      target_include_directories(sdl-build-options INTERFACE ${OPENGX_INCLUDE_DIRS})
+     endif()
+   endif()
+ 
+   if(NOT SDL2_DISABLE_SDL2MAIN)
+     list(INSERT SDL_LIBS 0 "-lSDL2main")
+-    list(APPEND EXTRA_LIBS "fat")
+   endif()
+-  list(APPEND EXTRA_LDFLAGS "${OGC_ARCH_SETTINGS} ${OGC_LINKER_FLAGS}")
+-  if(NINTENDO_WII)
+-    list(APPEND EXTRA_LIBS "wiiuse;bte;wiikeyboard")
+-  endif()
+-  list(APPEND EXTRA_LIBS "ogc;m")
+ endif()
+ 
+ if(HAVE_VULKAN AND NOT SDL_LOADSO)
+@@ -3399,6 +3392,13 @@ if(NOT WINDOWS_STORE AND NOT SDL2_DISABLE_SDL2MAIN)
+   if (NOT ANDROID)
+     set_target_properties(SDL2main PROPERTIES DEBUG_POSTFIX "${SDL_CMAKE_DEBUG_POSTFIX}")
+   endif()
++  if (OGC)
++    target_link_libraries(SDL2main PUBLIC
++      libogc::sound libogc::wiikeyboard libogc::ogc
++      libdvm::libdvm
++      OpenGL::GL
++    )
++  endif()
+   set_property(TARGET SDL2main APPEND PROPERTY COMPATIBLE_INTERFACE_STRING "SDL_VERSION")
+   set_property(TARGET SDL2main PROPERTY INTERFACE_SDL_VERSION "SDL2")
+ endif()
+@@ -3502,6 +3502,10 @@ if(SDL_SHARED)
+   set_property(TARGET SDL2 PROPERTY INTERFACE_SDL2_SHARED TRUE)
+   set_property(TARGET SDL2 APPEND PROPERTY COMPATIBLE_INTERFACE_STRING "SDL_VERSION")
+   set_property(TARGET SDL2 PROPERTY INTERFACE_SDL_VERSION "SDL2")
++
++  if (OGC)
++    message(FATAL_ERROR "Nintendo Wii doesn't support shared libraries")
++  endif()
+ endif()
+ 
+ if(SDL_STATIC)
+@@ -3528,6 +3532,13 @@ if(SDL_STATIC)
+   if(NOT ANDROID)
+     set_target_properties(SDL2-static PROPERTIES DEBUG_POSTFIX "${SDL_CMAKE_DEBUG_POSTFIX}")
+   endif()
++  if (OGC)
++    target_link_libraries(SDL2-static PUBLIC
++        libogc::sound libogc::wiikeyboard libogc::ogc
++        libdvm::libdvm
++        OpenGL::GL)
++
++  endif()
+   # Use `Compatible Interface Properties` to allow consumers to enforce a shared/static library
+   set_property(TARGET SDL2-static APPEND PROPERTY COMPATIBLE_INTERFACE_BOOL SDL2_SHARED)
+   set_property(TARGET SDL2-static PROPERTY INTERFACE_SDL2_SHARED FALSE)
+-- 
+2.47.1
+

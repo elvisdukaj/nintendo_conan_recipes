@@ -1,0 +1,28 @@
+From d28df99f37710c3c6833e6d32564326fc0c0646d Mon Sep 17 00:00:00 2001
+From: Elvis Dukaj <elvis.dukaj@gmail.com>
+Date: Fri, 24 Jan 2025 10:41:24 +0100
+Subject: [PATCH 2/2] ogc: disabling sigaction support
+
+---
+ CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b8bb4fd68..8abbab405 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1059,8 +1059,10 @@ if(SDL_LIBC)
+       check_symbol_exists("${_FN}" "${STDC_HEADER_NAMES}" ${_HAVEVAR})
+     endforeach()
+ 
+-    check_symbol_exists(sigaction "signal.h" HAVE_SIGACTION)
+     check_symbol_exists(setjmp "setjmp.h" HAVE_SETJMP)
++    if (NOT OGC)
++      check_symbol_exists(sigaction "signal.h" HAVE_SIGACTION)
++    endif()
+     check_symbol_exists(nanosleep "time.h" HAVE_NANOSLEEP)
+     check_symbol_exists(sysconf "unistd.h" HAVE_SYSCONF)
+     check_symbol_exists(sysctlbyname "sys/types.h;sys/sysctl.h" HAVE_SYSCTLBYNAME)
+-- 
+2.47.1
+
