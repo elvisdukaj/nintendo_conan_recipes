@@ -1,0 +1,13 @@
+diff --git a/build-devkit.sh b/build-devkit.sh
+index f6a694e..cf0fb44 100755
+--- a/build-devkit.sh
++++ b/build-devkit.sh
+@@ -95,8 +95,6 @@ fi
+ #
+ # See https://github.com/devkitPro/pacman and https://devkitpro.org/wiki/devkitPro_pacman
+ #---------------------------------------------------------------------------------
+-INSTALLDIR=/opt/devkitpro
+-
+ [ ! -z "$INSTALLDIR" ] && mkdir -p $INSTALLDIR && touch $INSTALLDIR/nonexistantfile && rm $INSTALLDIR/nonexistantfile || exit 1;
+
+ if test "`curl -V`"; then

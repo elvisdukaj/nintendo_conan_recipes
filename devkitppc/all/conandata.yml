@@ -1,0 +1,7 @@
+sources:
+  "r46.1":
+    url: "https://github.com/devkitPro/buildscripts/archive/refs/tags/devkitPPC_r46.1.tar.gz"
+    sha256: "af99588709ddcce90db180de23d4773b9ea39733efd6330574b2ef3251e6a7ec"
+patches:
+  "r46.1":
+    - patch_file: "patches/0001_install_dir_should_be_specified.patch"

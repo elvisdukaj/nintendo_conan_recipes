@@ -1,0 +1,27 @@
+--- a/Makefile
++++ b/Makefile
+@@ -51,8 +51,8 @@
+ else
+ #---------------------------------------------------------------------------------
+ 
+-export LIBDIR		:= $(LIBS)/$(PLATFORM)
+-export DEPSDIR		:=	$(DEPS)/$(PLATFORM)
++export LIBDIR		:= $(LIBS)
++export DEPSDIR		:=	$(DEPS)
+ 
+ #---------------------------------------------------------------------------------
+ endif
+@@ -191,10 +191,9 @@
+ wii: gc/ogc/libversion.h
+ #---------------------------------------------------------------------------------
+ 	@[ -d $(INCDIR) ] || mkdir -p $(INCDIR)
+-	@[ -d $(LIBS)/wii ] || mkdir -p $(LIBS)/wii
+-	@[ -d $(DEPS)/wii ] || mkdir -p $(DEPS)/wii
+-	@[ -d wii ] || mkdir -p wii
+-	@$(MAKE) PLATFORM=wii libs -C wii -f $(CURDIR)/Makefile
++	@[ -d $(LIBS)/wii ] || mkdir -p $(LIBS)
++	@[ -d $(DEPS)/wii ] || mkdir -p $(DEPS)
++	@$(MAKE) PLATFORM=wii libs -f $(CURDIR)/Makefile
+ 
+ 
+ #---------------------------------------------------------------------------------

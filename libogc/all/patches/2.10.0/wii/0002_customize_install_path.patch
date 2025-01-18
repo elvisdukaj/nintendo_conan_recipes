@@ -1,0 +1,17 @@
+--- a/Makefile
++++ b/Makefile
+@@ -295,10 +295,10 @@
+ #---------------------------------------------------------------------------------
+ install: wii install-headers
+ #---------------------------------------------------------------------------------
+-	@mkdir -p $(DESTDIR)$(DEVKITPRO)/libogc
+-	@cp -frv include $(DESTDIR)$(DEVKITPRO)/libogc
+-	@cp -frv lib $(DESTDIR)$(DEVKITPRO)/libogc
+-	@cp -frv libogc_license.txt $(DESTDIR)$(DEVKITPRO)/libogc
++	@mkdir -p $(DESTDIR)
++	@cp -frv include $(DESTDIR)
++	@cp -frv lib $(DESTDIR)
++	@cp -frv libogc_license.txt $(DESTDIR)
+ 
+ 
+ #---------------------------------------------------------------------------------

@@ -1,0 +1,89 @@
+--- a/Makefile
++++ b/Makefile
+@@ -94,11 +94,6 @@
+ INCLUDES	+=	-I$(BASEDIR)/wii
+ endif
+ 
+-ifeq ($(PLATFORM),cube)
+-MACHDEP		+=	-DHW_DOL
+-INCLUDES	+=	-I$(BASEDIR)/cube
+-endif
+-
+ CFLAGS		:= $(FALSE_POSITIVES) -g -O2 -fno-strict-aliasing -Wall $(MACHDEP) $(INCLUDES)
+ ASFLAGS		:= $(MACHDEP) -mregnames -D_LANGUAGE_ASSEMBLY $(INCLUDES)
+ 
+@@ -190,7 +185,7 @@
+ 
+ 
+ 
+-all: wii cube
++all: wii 
+ 
+ #---------------------------------------------------------------------------------
+ wii: gc/ogc/libversion.h
+@@ -201,16 +196,7 @@
+ 	@[ -d wii ] || mkdir -p wii
+ 	@$(MAKE) PLATFORM=wii libs -C wii -f $(CURDIR)/Makefile
+ 
+-#---------------------------------------------------------------------------------
+-cube: gc/ogc/libversion.h
+-#---------------------------------------------------------------------------------
+-	@[ -d $(INCDIR) ] || mkdir -p $(INCDIR)
+-	@[ -d $(LIBS)/cube ] || mkdir -p $(LIBS)/cube
+-	@[ -d $(DEPS)/cube ] || mkdir -p $(DEPS)/cube
+-	@[ -d cube ] || mkdir -p cube
+-	@$(MAKE) PLATFORM=cube libs -C cube -f $(CURDIR)/Makefile
+ 
+-
+ #---------------------------------------------------------------------------------
+ gc/ogc/libversion.h : Makefile
+ #---------------------------------------------------------------------------------
+@@ -283,7 +269,7 @@
+ $(WIIUSELIB).a: $(WIIUSEOBJ)
+ #---------------------------------------------------------------------------------
+ 
+-.PHONY: libs wii cube install-headers install dist docs
++.PHONY: libs wii install-headers install dist docs
+ 
+ #---------------------------------------------------------------------------------
+ install-headers:
+@@ -307,7 +293,7 @@
+ 	@cp ./gc/wiikeyboard/*.h $(INCDIR)/wiikeyboard
+ 
+ #---------------------------------------------------------------------------------
+-install: wii cube install-headers
++install: wii install-headers
+ #---------------------------------------------------------------------------------
+ 	@mkdir -p $(DESTDIR)$(DEVKITPRO)/libogc
+ 	@cp -frv include $(DESTDIR)$(DEVKITPRO)/libogc
+@@ -316,9 +302,9 @@
+ 
+ 
+ #---------------------------------------------------------------------------------
+-dist: wii cube install-headers
++dist: wii install-headers
+ #---------------------------------------------------------------------------------
+-	@tar    --exclude=*CVS* --exclude=.svn --exclude=wii --exclude=cube --exclude=*deps* \
++	@tar    --exclude=*CVS* --exclude=.svn --exclude=wii --exclude=*deps* \
+ 		--exclude=*.bz2  --exclude=*include* --exclude=*lib/* --exclude=*docs/*\
+ 		-cvjf libogc-src-$(VERSTRING).tar.bz2 *
+ 	@tar -cvjf libogc-$(VERSTRING).tar.bz2 include lib libogc_license.txt
+@@ -327,9 +313,6 @@
+ LIBRARIES	:=	$(OGCLIB).a  $(MODLIB).a $(MADLIB).a $(DBLIB).a \
+ 				$(TINYSMBLIB).a $(ASNDLIB).a $(AESNDLIB).a $(ISOLIB).a
+ 
+-ifeq ($(PLATFORM),cube)
+-LIBRARIES	+=	$(BBALIB).a
+-endif
+ ifeq ($(PLATFORM),wii)
+ LIBRARIES	+=	$(BTELIB).a $(WIIUSELIB).a $(DILIB).a $(WIIKEYBLIB).a
+ endif
+@@ -341,7 +324,7 @@
+ #---------------------------------------------------------------------------------
+ clean:
+ #---------------------------------------------------------------------------------
+-	rm -fr wii cube
++	rm -fr wii 
+ 	rm -fr $(DEPS)
+ 	rm -fr $(LIBS)
+ 	rm -fr $(INCDIR)

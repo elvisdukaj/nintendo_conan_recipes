@@ -1,0 +1,4 @@
+sources:
+  "2.10.0":
+    url: "https://github.com/devkitPro/libogc/archive/refs/tags/v2.10.0.tar.gz"
+    sha256: "7a74e4f1b0a1ccb88ac64f2678c2e853a1ad2589c5543075e43b86f420c70511"
