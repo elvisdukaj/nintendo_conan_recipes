@@ -1,0 +1,12 @@
+sources:
+  "0.15.0":
+    url: "https://github.com/devkitPro/opengx/archive/refs/tags/v0.15.0.tar.gz"
+    sha256: "79788c3cbac1ecfff149791e3e52a696b1169dfd1ce61a76afdd9e6dd04297a7"
+patches:
+  "0.15.0":
+    - patch_file: "patches/0001_removing_cxx_standard_and_additional_modules.patch"
+      patch_description: "Removing C and CXX standard"
+      patch_type: "portability"
+    - patch_file: "patches/0002_adding_libogc_dependency.patch"
+      patch_description: "Adding libogc dependency"
+      patch_type: "portability"

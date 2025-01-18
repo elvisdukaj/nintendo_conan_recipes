@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,6 +14,8 @@
+ 
+ include(GNUInstallDirs)
+ 
++find_package(libogc CONFIG REQUIRED)
++
+ add_library(${TARGET} STATIC
+     src/accum.c
+     src/accum.h
+@@ -63,6 +65,8 @@
+     ${CMAKE_CURRENT_SOURCE_DIR}/include
+ )
+ 
++target_link_libraries(${TARGET} PUBLIC libogc::libogc)
++
+ configure_file(opengl.pc.in opengl.pc @ONLY)
+ 
+ install(TARGETS ${TARGET}
