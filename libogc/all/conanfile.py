@@ -8,7 +8,7 @@ from conans.model.conan_file import Path
 
 required_conan_version = ">=2"
 
-class LibogcProConan(ConanFile):
+class LibogcConan(ConanFile):
     name = "libogc"
     description = "C Library for Wii and Gamecube homebrew"
     url = "https://github.com/devkitPro/libogc"

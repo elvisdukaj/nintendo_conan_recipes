@@ -8,7 +8,7 @@ from conan.tools.layout import basic_layout
 
 required_conan_version = ">=2"
 
-class OpenGXProConan(ConanFile):
+class OpenGXConan(ConanFile):
     name = "opengx"
     description = "OpenGL-like wrapper for Nintendo Wii/GameCube"
     url = "https://github.com/devkitPro/opengx"
