@@ -1,3 +1,5 @@
 # conan build file
 **/test_package/build/
 **/CMakeUserPresets.json
+**/.cache/
+**/compile_commands.json
