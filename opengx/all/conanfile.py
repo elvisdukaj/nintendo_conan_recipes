@@ -64,6 +64,7 @@ class OpenGXConan(ConanFile):
         self.cpp_info.set_property("cmake_target_name", "OpenGL::GL")
         self.cpp_info.requires = ["libogc::libogc"]
 
+        self.cpp_info.set_property("pkg_config_name", "opengl")
 
 
 
