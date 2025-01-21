@@ -1,0 +1,9 @@
+sources:
+  "1.0.6":
+    url: "https://github.com/devkitPro/gamecube-tools/archive/refs/tags/v1.0.6.tar.gz"
+    sha256: "0366e8b9b91025a0cf0aafd5c4b07a70ade54e3f04cf03ce93461f4a47b8ee9c"
+patches:
+  "1.0.6":
+    - patch_file: "patches/0001-elf2d-should-return-success-when-h-option.patch"
+      patch_description: "elf2dol should return success when -h"
+      patch_type: "bugfix"
