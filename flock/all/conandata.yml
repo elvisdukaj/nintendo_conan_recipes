@@ -1,0 +1,9 @@
+sources:
+  "0.4.0":
+    url: "https://github.com/discoteq/flock/archive/refs/tags/v0.4.0.tar.gz"
+    sha256: "75fa8a3499befeef70deccc754adc86bdb4fa3d9335e66749388a1b8ed16080c"
+patches:
+  "0.4.0":
+    - patch_file: "patches/0001-removing-manual-generation.patch"
+      patch_description: "Avoid producing the manual"
+      patch_type: "conan"
