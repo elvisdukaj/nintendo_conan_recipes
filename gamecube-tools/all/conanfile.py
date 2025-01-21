@@ -32,6 +32,11 @@ class GameCubeToolsConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
+        copy(self,
+             pattern="*.cmake",
+             src=os.path.join(self.recipe_folder, "cmake"),
+             dst=os.path.join(self.export_sources_folder, "cmake")
+             )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -47,8 +52,12 @@ class GameCubeToolsConan(ConanFile):
     def package(self):
         at = Autotools(self)
         at.install()
-        copy(self, pattern="*.cmake", src=self.source_folder, dst=self.package_folder)
-        copy(self, pattern="*", src=os.path.join(self.source_folder, "LICENSE"), dst=self.package_folder) 
+        self.output.info(f"source {self.source_folder}")
+        self.output.info(f"buikld {self.build_folder}")
+        self.output.info(f"export_sources {self.export_sources_folder}")
+        
+        copy(self, pattern="*.cmake", src=self.export_sources_folder, dst=self.package_folder)
+        copy(self, pattern="LICENSE", src=self.export_sources_folder, dst=self.package_folder) 
 
     def package_id(self):
         del self.info.settings.build_type
