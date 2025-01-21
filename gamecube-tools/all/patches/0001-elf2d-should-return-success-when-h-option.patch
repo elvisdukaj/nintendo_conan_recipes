@@ -1,0 +1,25 @@
+From 598d1d4264c1f4cf9ea02ccc621a1d5561ae53a2 Mon Sep 17 00:00:00 2001
+From: Elvis Dukaj <elvis.dukaj@gmail.com>
+Date: Tue, 21 Jan 2025 11:27:41 +0100
+Subject: [PATCH] elf2d should return success when -h option
+
+---
+ elftool/elf2dol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/elftool/elf2dol.c b/elftool/elf2dol.c
+index c4d2942..fbe4a1a 100644
+--- a/elftool/elf2dol.c
++++ b/elftool/elf2dol.c
+@@ -435,7 +435,7 @@ int main(int argc, char **argv)
+ 	while(argc && *arg[0] == '-') {
+ 		if(!strcmp(*arg, "-h")) {
+ 			usage(argv[0]);
+-			return 1;
++			return 0;
+ 		} else if(!strcmp(*arg, "-v")) {
+ 			verbosity++;
+ 		} else if(!strcmp(*arg, "--")) {
+-- 
+2.47.1
+
