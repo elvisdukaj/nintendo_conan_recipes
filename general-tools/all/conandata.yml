@@ -1,0 +1,4 @@
+sources:
+  "1.4.4":
+    url: "https://github.com/devkitPro/general-tools/archive/refs/tags/v1.4.4.tar.gz"
+    sha256: "72b773850f90dcac113b706dd7923c519ebb6584e02e148319b5cba771e154aa"
