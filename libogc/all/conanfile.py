@@ -31,6 +31,9 @@ class LibogcConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
+    def build_requirements(self):
+        self.tool_requires("gamecube-tools/1.0.6")
+
     def layout(self):
         basic_layout(self)
 

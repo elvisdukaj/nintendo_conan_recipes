@@ -10,6 +10,7 @@ class TestPackgeConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("devkitppc/r46.1")
+        self.tool_requires("gamecube-tools/1.0.6")
         
     def requirements(self):
         self.requires(self.tested_reference_str)
