@@ -15,7 +15,7 @@ class GameCubeToolsConan(ConanFile):
     topics = ("nintendo", "wii", "gamecube")
     settings = "os", "arch", "compiler", "build_type"
     license = "GPL 2"
-
+    package_type = "application"
     generators = "AutotoolsToolchain", "AutotoolsDeps"
 
     def build_requirements(self):
