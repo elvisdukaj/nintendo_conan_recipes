@@ -1,4 +1,3 @@
-import os
 from conan import ConanFile
 from conan.tools.files import get, export_conandata_patches, apply_conandata_patches, copy
 from conan.tools.gnu import Autotools
