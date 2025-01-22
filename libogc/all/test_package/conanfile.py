@@ -10,9 +10,6 @@ class TestPackgeConan(ConanFile):
 
     def build_requirements(self):
         self.tool_requires("devkitppc/r46.1")
-        self.tool_requires("gamecube-tools/1.0.6")
-        self.tool_requires("general-tools/1.4.4")
-        self.tool_requires("flock/0.4.0")
         
     def requirements(self):
         self.requires(self.tested_reference_str)
