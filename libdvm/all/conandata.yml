@@ -1,0 +1,12 @@
+sources:
+  "2.0.0":
+    url: "https://github.com/devkitPro/libdvm/archive/refs/tags/v2.0.0.tar.gz"
+    sha256: "98f2bb43a49ad8fbc23ec121ed1f168a709deb6936a742aa0314f0902787ef52"
+patches:
+  "2.0.0":
+    - patch_file: "patches/0001-fix-conan-requirements.patch"
+      patch_description: "Add dependency to libogc"
+      patch_type: "conan"
+    - patch_file: "patches/0002-remove-prefix-for-installation.patch"
+      patch_description: "Removin prefix path"
+      patch_type: "conan"
