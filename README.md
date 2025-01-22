@@ -4,7 +4,7 @@ This repository contains a list of conan recipes that provides toolchain, tools 
 
 Most of the code is coming from the https://devkitpro.org please consider to sponsor that project. This work wouldn't be possible without the tool provided by them.
 
-## WHat is included
+## What is included
 
 - `devkitppc`: this is the toolchain for targetting the Wii. It's based on GCC 14.2.
 - `flock`: utility for file lock used by `libogc`
