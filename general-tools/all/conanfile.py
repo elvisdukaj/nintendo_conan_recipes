@@ -1,4 +1,3 @@
-import os
 from conan import ConanFile
 from conan.tools.files import copy
 from conan.tools.files import get, export_conandata_patches, apply_conandata_patches, copy
@@ -52,4 +51,3 @@ class GeneralToolsConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = []
         self.cpp_info.libdirs = []
-        # self.buildenv_info.append_path("PATH", os.path.join(self.package_folder, "bin"))
