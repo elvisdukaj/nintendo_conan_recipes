@@ -1,3 +1,4 @@
+import os
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import get, copy, patch
@@ -16,9 +17,14 @@ class LibogcConan(ConanFile):
     license = "MIT"
     topics = ("gcc", "nintendo", "wii")
     settings = "os", "arch", "compiler", "build_type"
+    package_type = "static-library"
 
     options = { "with_extra_libs": [True, False] }
     default_options = { "with_extra_libs": False }
+
+    @property
+    def _cmake_install_base_path(self):
+        return os.path.join("lib", "cmake", "libogc")
 
     def validate(self):
         valid_os = ["NintendoWii"]
@@ -26,13 +32,24 @@ class LibogcConan(ConanFile):
             raise ConanInvalidConfiguration(f"{self.name} {self.version} is only supported for the following operating systems: {valid_os}")
 
     def export_sources(self):
-        copy(self, "*.patch", src=self.recipe_folder, dst=self.export_sources_folder)
+        copy(self,
+             pattern="*.patch", 
+             src=self.recipe_folder,
+             dst=self.export_sources_folder
+             )
+        copy(self,
+             pattern="*.cmake",
+             src=self.recipe_folder,
+             dst=self.export_sources_folder
+             )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def build_requirements(self):
-        self.tool_requires("gamecube-tools/1.0.6")
+        self.tool_requires("gamecube-tools/1.0.6", visible=True)
+        self.tool_requires("general-tools/1.4.4", visible=True)
+        self.tool_requires("flock/0.4.0", visible=True)
 
     def layout(self):
         basic_layout(self)
@@ -73,7 +90,12 @@ class LibogcConan(ConanFile):
 
     def package(self):
         self.run(f"make install DESTDIR={self.package_folder}", cwd=self.source_folder, env="conanbuild")
-        pass
+        cmake_config_folder = os.path.join(self.package_folder, self._cmake_install_base_path)
+        copy(self,
+             pattern="*.cmake",
+             src=self.source_folder,
+             dst=cmake_config_folder
+             )
 
     def package_info(self):
         self.cpp_info.defines = ["GEKKO"]
@@ -113,3 +135,10 @@ class LibogcConan(ConanFile):
 
         self.cpp_info.system_libs = ["m"]
 
+        # extra cmake modules to be included when using find_package
+        build_modules = [
+            os.path.join(self._cmake_install_base_path, "gamecube-tools.cmake"),
+            os.path.join(self._cmake_install_base_path, "general-tools.cmake"),
+            os.path.join(self._cmake_install_base_path, "flock-tools.cmake"),
+        ]
+        self.cpp_info.set_property("cmake_build_modules", build_modules)
