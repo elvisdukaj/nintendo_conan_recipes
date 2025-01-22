@@ -4,16 +4,8 @@
 cmake_minimum_required(VERSION 3.13)
 include_guard(GLOBAL)
 
-# Set default build type
-set(CMAKE_BUILD_TYPE_INIT "Release")
-
 # Use .elf extension for compiled binaries
 set(CMAKE_EXECUTABLE_SUFFIX .elf)
-
-# Prevent standard build configurations from loading unwanted "default" flags
-if(DKP_NO_BUILTIN_CMAKE_CONFIGS)
-	set(CMAKE_NOT_USING_CONFIG_FLAGS TRUE)
-endif()
 
 # Disable shared library support
 set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "Shared libs not available")
@@ -32,12 +24,7 @@ macro(__dkp_init_platform_settings platform)
 
 	string(APPEND CMAKE_ASM_FLAGS_INIT " -x assembler-with-cpp")
 
-	if(NOT DKP_PLATFORM_BOOTSTRAP)
-		set(CMAKE_EXE_LINKER_FLAGS_INIT "${${platform}_ARCH_SETTINGS} ${${platform}_LINKER_FLAGS}")
-	else()
-		set(CMAKE_EXE_LINKER_FLAGS_INIT "${${platform}_ARCH_SETTINGS}")
-		set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-	endif()
+	set(CMAKE_EXE_LINKER_FLAGS_INIT "${${platform}_ARCH_SETTINGS} ${${platform}_LINKER_FLAGS}")
 
 	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND DEFINED DKP_INSTALL_PREFIX_INIT)
 		set(CMAKE_INSTALL_PREFIX "${DKP_INSTALL_PREFIX_INIT}" CACHE PATH
@@ -69,15 +56,3 @@ endmacro()
 
 # Include common devkitPro bits and pieces
 include(dkp-impl-helpers)
-include(dkp-linker-utils)
-include(dkp-custom-target)
-include(dkp-embedded-binary)
-include(dkp-asset-folder)
-
-# Build tool hook
-if(DEFINED ENV{DKP_BUILD_TOOL_HOOK})
-	set(DKP_BUILD_TOOL_HOOK "$ENV{DKP_BUILD_TOOL_HOOK}" CACHE INTERNAL "")
-endif()
-if(DEFINED DKP_BUILD_TOOL_HOOK)
-	include(${DKP_BUILD_TOOL_HOOK})
-endif()

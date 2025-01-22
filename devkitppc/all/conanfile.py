@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import get, export_conandata_patches, apply_conandata_patches, copy
@@ -17,6 +16,7 @@ class DevKitProConan(ConanFile):
     url = "https://github.com/devkitpro"
     homepage = "https://github.com/devkitpro"
     license = ""
+    package_type = "application"
     topics = ("gcc", "nintendo", "wii")
     settings = "os"
 
@@ -33,7 +33,7 @@ class DevKitProConan(ConanFile):
     def _settings_target_os(self):
         if self._settings_target:
             return self._settings_target.get_safe("os")
-    
+
     def validate(self):
         valid_os = ["Macos"]
         if str(self.settings.os) not in valid_os:
@@ -50,7 +50,6 @@ class DevKitProConan(ConanFile):
         basic_layout(self)
 
     def generate(self):
-        self.output.error(f"the package folder is {self.package_folder}")
         be = VirtualBuildEnv(self)
         env = be.environment()
         env.define("BUILD_DKPRO_PACKAGE", "2")   # BUILD_DKPRO_PACKAGE == "2" --> devkitPPC
@@ -145,4 +144,3 @@ class DevKitProConan(ConanFile):
 
         cmake_user_toolchain = os.path.join(self.package_folder, "cmake", "Wii.cmake")
         self.conf_info.append("tools.cmake.cmaketoolchain:user_toolchain", cmake_user_toolchain)
-

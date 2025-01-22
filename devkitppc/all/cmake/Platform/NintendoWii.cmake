@@ -6,7 +6,7 @@ include_guard(GLOBAL)
 
 # Platform identification flags
 set(NINTENDO_WII TRUE)
-set(OGC_EXTRA_LIBS "-lwiiuse -lbte")
 
 # Inherit libogc platform configuration
-include(Platform/libogc)
+include(Platform/Generic-dkP)
+
