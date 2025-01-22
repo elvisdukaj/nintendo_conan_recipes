@@ -1,0 +1,36 @@
+From d5d01ab4b35043d04f19941ca2d55b11816d8a1d Mon Sep 17 00:00:00 2001
+From: Elvis Dukaj <elvis.dukaj@gmail.com>
+Date: Wed, 22 Jan 2025 11:44:34 +0100
+Subject: [PATCH 2/2] remove prefix for installation
+
+---
+ CMakeLists.txt | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 17fb937..66c04dd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,19 +4,6 @@ project(dvm LANGUAGES C)
+ 
+ find_package(libogc CONFIG REQUIRED)
+ 
+-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+-	if(NINTENDO_DS AND ARM9)
+-		set(CMAKE_INSTALL_PREFIX "${NDS_ROOT}" CACHE PATH "" FORCE)
+-	elseif(NINTENDO_GBA)
+-		set(CMAKE_INSTALL_PREFIX "${GBA_ROOT}" CACHE PATH "" FORCE)
+-	elseif(NINTENDO_GAMECUBE OR NINTENDO_WII)
+-		set(CMAKE_INSTALL_PREFIX "${OGC_ROOT}" CACHE PATH "" FORCE)
+-		set(LIB_SUBDIR "/${OGC_SUBDIR}")
+-	else()
+-		message(FATAL_ERROR "Unknown platform")
+-	endif()
+-endif()
+-
+ add_library(dvm STATIC)
+ set_target_properties(dvm PROPERTIES OUTPUT_NAME fat)
+ 
+-- 
+2.47.1
+
