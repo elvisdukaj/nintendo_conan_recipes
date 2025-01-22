@@ -1,6 +1,4 @@
-import os
 from conan import ConanFile
-from conan.tools.files import copy
 from conan.tools.files import get, export_conandata_patches, apply_conandata_patches, copy
 from conan.tools.gnu import Autotools
 from conan.tools.layout import basic_layout
@@ -16,7 +14,7 @@ class GameCubeToolsConan(ConanFile):
     topics = ("nintendo", "wii", "gamecube")
     settings = "os", "arch", "compiler", "build_type"
     license = "GPL 2"
-
+    package_type = "application"
     generators = "AutotoolsToolchain", "AutotoolsDeps"
 
     def build_requirements(self):
@@ -32,15 +30,9 @@ class GameCubeToolsConan(ConanFile):
 
     def export_sources(self):
         export_conandata_patches(self)
-        copy(self,
-             pattern="*.cmake",
-             src=os.path.join(self.recipe_folder, "cmake"),
-             dst=os.path.join(self.export_sources_folder, "cmake")
-             )
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
-
 
     def build(self):
         apply_conandata_patches(self)
@@ -52,11 +44,6 @@ class GameCubeToolsConan(ConanFile):
     def package(self):
         at = Autotools(self)
         at.install()
-        self.output.info(f"source {self.source_folder}")
-        self.output.info(f"buikld {self.build_folder}")
-        self.output.info(f"export_sources {self.export_sources_folder}")
-        
-        copy(self, pattern="*.cmake", src=self.export_sources_folder, dst=self.package_folder)
         copy(self, pattern="LICENSE", src=self.export_sources_folder, dst=self.package_folder) 
 
     def package_id(self):
@@ -66,7 +53,3 @@ class GameCubeToolsConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = []
         self.cpp_info.libdirs = []
-
-        cmake_user_toolchain = os.path.join(self.package_folder, "cmake", "gamecube-tools.cmake")
-        self.conf_info.append("tools.cmake.cmaketoolchain:user_toolchain", cmake_user_toolchain)
-
