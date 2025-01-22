@@ -51,4 +51,3 @@ class FlockConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = []
         self.cpp_info.libdirs = []
-        self.buildenv_info.append_path("PATH", os.path.join(self.package_folder, "bin"))
