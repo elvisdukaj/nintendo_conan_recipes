@@ -14,6 +14,7 @@ class OpenGXConan(ConanFile):
     url = "https://github.com/devkitPro/opengx"
     homepage = "https://github.com/devkitPro/opengx"
     license = "MIT"
+    package_type = "static-library"
     topics = ("nintendo", "Wii", "GameCube", "opengl")
     settings = "os", "arch", "compiler", "build_type"
 
@@ -49,10 +50,8 @@ class OpenGXConan(ConanFile):
     def package(self):
         cmake = CMake(self)
         cmake.install()
-
         rm(self, pattern="*", folder=os.path.join(self.package_folder, "lib", "cmake"))
         rm(self, pattern="*", folder=os.path.join(self.package_folder, "lib", "pkgconfig"))
-
 
     def package_info(self):
         supported_os = ["NintendoWii", "NintendoGameCube"]
