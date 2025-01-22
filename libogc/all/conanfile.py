@@ -17,6 +17,7 @@ class LibogcConan(ConanFile):
     license = "MIT"
     topics = ("gcc", "nintendo", "wii")
     settings = "os", "arch", "compiler", "build_type"
+    package_type = "static-library"
 
     options = { "with_extra_libs": [True, False] }
     default_options = { "with_extra_libs": False }
@@ -141,8 +142,3 @@ class LibogcConan(ConanFile):
             os.path.join(self._cmake_install_base_path, "flock-tools.cmake"),
         ]
         self.cpp_info.set_property("cmake_build_modules", build_modules)
-
-
-
-
-
