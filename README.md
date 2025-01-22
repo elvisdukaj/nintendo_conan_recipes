@@ -12,6 +12,7 @@ Most of the code is coming from the https://devkitpro.org please consider to spo
 - `general-tools`: convert binary files to GCC assembly modules
 - `libogc`: C Library for Wii and Gamecube homebrew
 - `opengx`: OpenGL-like wrapper for Nintendo Wii/GameCube
+- `libdvm`: disk and volume management library for devkitPro platforms
 
 New libraries are planned to be added in future. In particular `libsdl` and `glfw`.
 
@@ -65,22 +66,20 @@ Be sure that the `settings_user.yml` and the `NintendoWii` profile are installed
 
 ** The build are tested only on MacOS so I cannot guarantee for Windows or Linux environmt yet. **
 
-The order of build is important since `opengx` requires `libogc` which requires `devkitppc`. 
+The order of build is important since there are dependencies between different packages.
 
-## devkitppc
-
-```Bash
-conan create devkitppc/all --version r46.1 --build missing
-```
-
-## libogc
+## Build
 
 ```Bash
-conan create libogc/all --version 2.10.0 --profile NintendoWii  --build missing
+conan create devkitppc/all --version r46.1
+conan create flock/all --version 0.4.0
+conan create gamecube-tools/all --version 1.0.6
+coman create general-tools/all --version 1.4.4
+conan create libogc/all --version 2.10.0 --profile NintendoWii
+conan create opengx/all --version 0.15.0 --profile NintendoWii  
+conan create libdvm/all --version 2.0.0 --profile NintendoWii
 ```
 
-## opengx
+devkitppc in particular is building gcc 14.2, newlib and binutils with patches for Wii.
 
-```Bash
-conan create opengx/all --profile NintendoWii --version 0.15.0 --build missing
-```
+The build  should work on Linux, msys2 and macOS, but I've tried only on macOS. MR are welcome for different operating systems.
