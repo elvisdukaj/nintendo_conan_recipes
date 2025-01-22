@@ -1,0 +1,57 @@
+From 03569ccdf21f3e91123a64e231c44ac51b0dedab Mon Sep 17 00:00:00 2001
+From: Elvis Dukaj <elvis.dukaj@gmail.com>
+Date: Tue, 21 Jan 2025 17:25:22 +0100
+Subject: [PATCH] removing manual generation
+
+---
+ Makefile.am | 27 +--------------------------
+ 1 file changed, 1 insertion(+), 26 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 6770f57..e9e8c3f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6,11 +6,6 @@
+ # - test
+ 
+ # utilities
+-RONN=ronn
+-RONN_FLAGS=\
+-	--manual="User Commands" \
+-	--organization=discoteq \
+-	--date=2015-12-18
+ OPEN=open
+ GIT=git
+ CPIO=cpio
+@@ -54,27 +49,7 @@ flock_LDADD = $(LDADD)
+ lint:
+ 	$(LINT) $(LINT_FLAGS) src/flock.c
+ 
+-man_MANS = man/flock.1
+-man/flock.1: man/flock.1.ronn man/index.txt
+-	$(RONN) $(RONN_FLAGS) -r man/flock.1.ronn
+-man/flock.1.html: man/flock.1.ronn man/index.txt
+-	$(RONN) $(RONN_FLAGS) -5 man/flock.1.ronn
+-nroff-man: man/flock.1
+-	$(NROFF) -man < man/flock.1
+-html-man: man/flock.1.html
+-	$(OPEN) man/flock.1.html
+-doc: man/flock.1 man/flock.1.html
+-
+ EXTRA_DIST=\
+ 	LICENSE.md \
+ 	README.md \
+-	autogen.sh \
+-	man/flock.1 \
+-	man/flock.1.html \
+-	man/flock.1.ronn \
+-	man/index.txt
+-
+-TEST_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
+-                  $(top_srcdir)/config/tap-driver.sh
+-TESTS = t/default.bats t/smartos.bats
+-EXTRA_DIST += $(TESTS)
++	autogen.sh
+-- 
+2.47.1
+
