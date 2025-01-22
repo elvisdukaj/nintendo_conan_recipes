@@ -15,7 +15,7 @@ class FlockConan(ConanFile):
     topics = ("portable", "boring")
     settings = "os", "arch", "compiler", "build_type"
     license = "ISC"
-
+    package_type = "application"
     generators = "AutotoolsToolchain", "AutotoolsDeps"
 
     def build_requirements(self):
