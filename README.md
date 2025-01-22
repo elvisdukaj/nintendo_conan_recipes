@@ -7,6 +7,9 @@ Most of the code is coming from the https://devkitpro.org please consider to spo
 ## WHat is included
 
 - `devkitppc`: this is the toolchain for targetting the Wii. It's based on GCC 14.2.
+- `flock`: utility for file lock used by `libogc`
+- `gamecube-tools`: utility tools for GameCube and Wii to convert from *.elf to *.dol and other small utilities
+- `general-tools`: convert binary files to GCC assembly modules
 - `libogc`: C Library for Wii and Gamecube homebrew
 - `opengx`: OpenGL-like wrapper for Nintendo Wii/GameCube
 
@@ -67,7 +70,7 @@ The order of build is important since `opengx` requires `libogc` which requires 
 ## devkitppc
 
 ```Bash
-onan create devkitppc/all --version r46.1 --build missing
+conan create devkitppc/all --version r46.1 --build missing
 ```
 
 ## libogc
