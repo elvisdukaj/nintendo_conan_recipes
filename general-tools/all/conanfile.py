@@ -16,7 +16,7 @@ class GeneralToolsConan(ConanFile):
     # topics = ()
     settings = "os", "arch", "compiler", "build_type"
     license = "GPL-3"
-
+    package_type = "application"
     generators = "AutotoolsToolchain", "AutotoolsDeps"
 
     def build_requirements(self):
