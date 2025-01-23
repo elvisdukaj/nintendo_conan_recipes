@@ -98,7 +98,7 @@ class LibogcConan(ConanFile):
              )
 
     def package_info(self):
-        self.cpp_info.defines = ["GEKKO"]
+        self.cpp_info.components["ogc"].defines = ["GEKKO"]
 
         wii_ogc_libs = ["wiiuse", "bte", "ogc"]
         # TODO: enable GameCube? We need to apply different set of patches for this
@@ -121,10 +121,18 @@ class LibogcConan(ConanFile):
             self.output.warning(f"{self.settings.os} not supported. Supported os are {supported_os}")
 
         if self.settings.os == "NintendoWii":
-            self.cpp_info.libs = wii_ogc_libs
-            if self.options.with_extra_libs is True:
-                self.cpp_info.libs.extend(extra_libs)
-                self.cpp_info.libs.extend(wii_extra_libs)
+            # core components
+            self.cpp_info.components["ogc"].libs = wii_ogc_libs
+
+            # optional components
+            self.cpp_info.components["wiikeyboard"].libs = ["wiikeyboard"]
+            self.cpp_info.components["sound"].libs = ["aesnd", "asnd"]
+
+            # self.cpp_info.libs = wii_ogc_libs
+            # if self.options.with_extra_libs is True:
+                # self.cpp_info.libs.extend(extra_libs)
+                # self.cpp_info.libs.extend(wii_extra_libs)
+
             
         # TODO: add support for GameCube: adding 
         # if self.settings.os == "NintendoGameCube":
@@ -133,7 +141,7 @@ class LibogcConan(ConanFile):
             # if self.options.with_extra_libs is True:
                 # self.cpp_info.libs.extend(extra_libs)
 
-        self.cpp_info.system_libs = ["m"]
+        self.cpp_info.components["ogc"].system_libs = ["m"]
 
         # extra cmake modules to be included when using find_package
         build_modules = [
