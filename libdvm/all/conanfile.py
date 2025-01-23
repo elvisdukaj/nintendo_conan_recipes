@@ -62,7 +62,7 @@ class LibdvmConan(ConanFile):
         if self.settings.os not in supported_os:
             self.output.warning(f"{self.settings.os} not supported. Supported os are {supported_os}")
 
-        self.cpp_info.lib = ["fat"]
+        self.cpp_info.libs = ["fat"]
         self.cpp_info.requires = ["libogc::libogc"]
 
 
