@@ -3,8 +3,14 @@
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
+#include <wiikeyboard/keyboard.h>
+
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
+
+void test_wiikeyboard() {
+  KEYBOARD_Init(NULL);
+}
 
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
