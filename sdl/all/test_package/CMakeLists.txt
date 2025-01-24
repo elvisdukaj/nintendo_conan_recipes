@@ -3,7 +3,7 @@ project(test_package)
 
 find_package(SDL2 REQUIRED CONFIG)
 
-add_executable(${PROJECT_NAME} test_package.c)
+add_executable(${PROJECT_NAME} test_package.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2main)
 
 ogc_create_dol(${PROJECT_NAME})
