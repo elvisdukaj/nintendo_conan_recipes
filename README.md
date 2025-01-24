@@ -13,8 +13,7 @@ Most of the code is coming from the https://devkitpro.org please consider to spo
 - `libogc`: C Library for Wii and Gamecube homebrew
 - `opengx`: OpenGL-like wrapper for Nintendo Wii/GameCube
 - `libdvm`: disk and volume management library for devkitPro platforms
-
-New libraries are planned to be added in future. In particular `libsdl` and `glfw`.
+- `sdl2`: **EXPERIMENTAL**
 
 # Preparation
 
@@ -78,8 +77,16 @@ coman create general-tools/all --version 1.4.4
 conan create libogc/all --version 2.10.0 --profile NintendoWii
 conan create opengx/all --version 0.15.0 --profile NintendoWii  
 conan create libdvm/all --version 2.0.0 --profile NintendoWii
+conan create sdl/all --version 2.18.5-15 --profile NintendoWii
 ```
 
 devkitppc in particular is building gcc 14.2, newlib and binutils with patches for Wii.
 
 The build  should work on Linux, msys2 and macOS, but I've tried only on macOS. MR are welcome for different operating systems.
+
+# Emulator
+
+I am using the [Dolphin](https://dolphin-emu.org).
+
+Follow the instruction [here](https://github.com/elvisdukaj/nintendo_conan_recipes/pull/11) To set the
+emulator to work for homebrew applications.
