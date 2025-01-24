@@ -1,0 +1,13 @@
+sources:
+  "2.28.5-15":
+    url: "https://github.com/devkitPro/SDL/archive/refs/tags/ogc-sdl-2.28.5-15.tar.gz"
+    sha256: "20222c15a397303b5798157282d2aeb27726dcce41fa76eb447c9f599716f0f0"
+
+patches:
+  "2.28.5-15":
+    - patch_file: "patches/0001-ogc-adding-cmake-dependency-for-the-nintendowii-with.patch"
+      patch_description: "SDL use libogc and libdvm via cmake targets"
+      patch_type: "conan"
+    - patch_file: "patches/0002-ogc-disabling-sigaction-support.patch"
+      patch_description: "SDL use libogc and libdvm via cmake targets"
+      patch_type: "conan"
