@@ -34,6 +34,20 @@ class DevKitProConan(ConanFile):
         if self._settings_target:
             return self._settings_target.get_safe("os")
 
+    def requirements(self):
+        self.requires("make/4.4.1")
+        self.requires("bison/3.8.2")
+        self.requires("flex/2.6.4")
+        self.requires("gettext/0.22.5")
+        self.requires("gsl/2.7.1")
+        self.requires("gmp/6.3.0")
+        self.requires("mpfr/4.2.0")
+        self.requires("mpc/1.3.1")
+        self.requires("readline/8.2")
+        self.requires("libarchive/3.7.6")
+        self.requires("openssl/3.3.2")
+        self.requires("libtool/2.4.7")
+
     def validate(self):
         valid_os = ["Macos"]
         if str(self.settings.os) not in valid_os:
